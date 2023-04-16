@@ -98,7 +98,7 @@ function IPC_EncodeMessage()
     local _, instanceType, _, difficultyName, _,
     _, _, _, _, _ = GetInstanceInfo()
     local playerLevel = UnitLevel("player")
-    local memberCount = GetNumGroupMembers() -- Use GetNumPartyMembers() for <5.0.4
+    local memberCount = GetNumPartyMembers() -- Use GetNumGroupMembers() for >5.0.4
     local mapID, _ = GetCurrentMapAreaID()
     local details
     if zoneName == nil then zoneName = UnknownZoneName end
@@ -122,10 +122,10 @@ function IPC_EncodeMessage()
             if XP >= 1000 then XP = string.format("%.01f", XP/1000) .. "k" end
 			details = XP .. "/" .. maxXP .. " XP"
         else
-			details = math.ceil(GetAverageItemLevel() - 0.5) .. itemLevelStr
-			-- Uncomment these two lines and comment the line above for versions <4.0.1
-			-- local money = GetMoney()
-			-- details = ("%dg %ds %dc"):format(money/100/100, (money/100)%100, money%100)
+			-- details = math.ceil(GetAverageItemLevel() - 0.5) .. itemLevelStr
+			-- Comment these two lines and uncomment the line above for versions >4.0.1
+			 local money = GetMoney()
+			 details = ("%dg %ds %dc"):format(money/100/100, (money/100)%100, money%100)
         end
     else
         details = inGroupOfSomePeople()
